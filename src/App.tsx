@@ -4,6 +4,21 @@ import { useRef, useState, useEffect } from 'react';
 
 // --- Components ---
 
+const ImageWithFallback = ({ src, alt, className, ...props }: any) => {
+  const [error, setError] = useState(false);
+  const fallbackSrc = "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800"; // Soft cafe mood fallback
+
+  return (
+    <img
+      src={error ? fallbackSrc : src}
+      alt={alt}
+      className={className}
+      onError={() => !error && setError(true)}
+      {...props}
+    />
+  );
+};
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -93,8 +108,8 @@ const Navbar = () => {
                     transition={{ delay: 0.3, duration: 1 }}
                     className="aspect-[3/4] rounded-3xl overflow-hidden border border-white/5 relative"
                   >
-                     <img 
-                       src="/src/assets/images/hero_night_cafe_1779016537883.png" 
+                     <ImageWithFallback 
+                       src="/images/hero_night_cafe_1779016537883.png" 
                        className="w-full h-full object-cover grayscale brightness-50" 
                        alt="Atmosphere"
                      />
@@ -178,8 +193,8 @@ const Hero = () => {
     <section ref={containerRef} className="relative h-[90vh] md:h-screen w-full overflow-hidden bg-soft-black pt-0 px-0">
       <div className="h-full w-full relative overflow-hidden">
         <motion.div style={{ y, scale }} className="absolute inset-0">
-          <img 
-            src="/src/assets/images/hero_night_cafe_1779016537883.png" 
+          <ImageWithFallback 
+            src="/images/hero_night_cafe_1779016537883.png" 
             alt="SUCA Night Mood" 
             className="h-full w-full object-cover grayscale-[0.05] contrast-[1.1]"
             referrerPolicy="no-referrer"
@@ -253,8 +268,8 @@ const StorySection = () => {
           className="md:w-1/2 relative"
         >
           <div className="rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 aspect-[4/5]">
-            <img 
-              src="/src/assets/images/story_lifestyle_editorial_1779016554894.png" 
+            <ImageWithFallback 
+              src="/images/story_lifestyle_editorial_1779016554894.png" 
               alt="Lifestyle" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
@@ -302,9 +317,9 @@ const SignatureMenu = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const menuItems = [
     { name: "Dirty Latte", category: "Coffee", price: "14", image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=800" },
-    { name: "Injeolmi Bingsu", category: "Signature", price: "22", image: "/src/assets/images/menu_bingsu_cinematic_1779016570965.png" },
-    { name: "Uji Matcha Latte", category: "Matcha", price: "16", image: "/src/assets/images/menu_matcha_editorial_1779016924587.png" },
-    { name: "Suca Signature", category: "Lifestyle", price: "18", image: "/src/assets/images/instagram_bento_1_1779016588712.png" },
+    { name: "Injeolmi Bingsu", category: "Signature", price: "22", image: "/images/menu_bingsu_cinematic_1779016570965.png" },
+    { name: "Uji Matcha Latte", category: "Matcha", price: "16", image: "/images/menu_matcha_editorial_1779016924587.png" },
+    { name: "Suca Signature", category: "Lifestyle", price: "18", image: "/images/instagram_bento_1_1779016588712.png" },
     { name: "Hojicha Cloud", category: "Signature", price: "16", image: "https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=800" },
   ];
 
@@ -360,7 +375,7 @@ const SignatureMenu = () => {
               className="flex-shrink-0 w-[72vw] md:w-[30vw] group/card snap-start"
             >
               <div className="aspect-[4/5] rounded-[28px] md:rounded-[2.5rem] overflow-hidden mb-6 md:mb-8 relative shadow-xl md:shadow-2xl transition-transform duration-700 group-hover/card:scale-[1.02]">
-                <img 
+                <ImageWithFallback 
                   src={item.image} 
                   alt={item.name} 
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-110"
@@ -403,8 +418,8 @@ const SignatureMenu = () => {
 
 const InstagramSection = () => {
   const images = [
-    { src: "/src/assets/images/instagram_bento_1_1779016588712.png", span: "col-span-1 row-span-1" },
-    { src: "/src/assets/images/instagram_bento_2_1779016609490.png", span: "col-span-1 row-span-2" },
+    { src: "/images/instagram_bento_1_1779016588712.png", span: "col-span-1 row-span-1" },
+    { src: "/images/instagram_bento_2_1779016609490.png", span: "col-span-1 row-span-2" },
     { src: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800", span: "col-span-2 row-span-1" },
     { src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800", span: "col-span-1 row-span-1" },
     { src: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=800", span: "col-span-1 row-span-1" },
@@ -430,7 +445,7 @@ const InstagramSection = () => {
               whileHover={{ scale: 0.98 }}
               className={`rounded-[2rem] overflow-hidden ${img.span} border border-concrete group`}
             >
-              <img 
+              <ImageWithFallback 
                 src={img.src} 
                 alt="Instagram" 
                 className="w-full h-full object-cover grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
@@ -523,7 +538,7 @@ const LocationSection = () => {
              transition={{ duration: 1.5 }}
              className="rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] relative z-10 border border-white/5"
            >
-             <img 
+             <ImageWithFallback 
                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200" 
                alt="Map" 
                className="w-full aspect-[4/5] object-cover grayscale brightness-50 opacity-40 group-hover:opacity-60 transition-all duration-1000"
