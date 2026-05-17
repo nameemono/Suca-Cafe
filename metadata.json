@@ -1,0 +1,6 @@
+{
+  "name": "SUCA Urban Sip",
+  "description": "A premium aesthetic café website featuring a hidden creative corner in Bandar Sri Permaisuri with coffee, bingsu, and lifestyle experiences.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
